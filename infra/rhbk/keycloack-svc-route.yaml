@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak-custom-service
+  namespace: rhbk-lab
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: tls-secret
+  labels:
+    app: keycloak
+    app.kubernetes.io/instance: keycloak
+    app.kubernetes.io/managed-by: keycloak-operator
+spec:
+  selector:
+    app: keycloak
+    app.kubernetes.io/instance: keycloak
+    app.kubernetes.io/managed-by: keycloak-operator
+  ports:
+    - name: https
+      protocol: TCP
+      port: 8443
+      targetPort: 8443
+    - name: management
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: keycloack-custom-route
+  namespace: rhbk-lab
+spec:
+  path: /
+  to:
+    name: keycloak-custom-service
+    weight: 100
+    kind: Service
+  host: rhbk.apps.cluster-6sxqj.6sxqj.sandbox2680.opentlc.com
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  port:
+    targetPort: https
+  alternateBackends: []

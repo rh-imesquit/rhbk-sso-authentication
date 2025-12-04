@@ -1,0 +1,24 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+spec:
+  instances: 1
+  db:
+    vendor: postgres
+    host: postgres-db
+    usernameSecret:
+      name: keycloak-db-secret
+      key: username
+    passwordSecret:
+      name: keycloak-db-secret
+      key: password
+  http:
+    httpsPort: 8443
+    tlsSecret: tls-secret
+  ingress:
+    enabled: false
+  hostname:
+    hostname: rhbk.apps.cluster-6sxqj.6sxqj.sandbox2680.opentlc.com
+  proxy:
+    headers: xforwarded
