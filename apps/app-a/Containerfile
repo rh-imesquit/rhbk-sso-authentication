@@ -1,5 +1,6 @@
 FROM registry.access.redhat.com/ubi9/nodejs-20 AS builder
 WORKDIR /app
+USER root
 COPY package*.json ./
 RUN npm ci
 COPY . .
