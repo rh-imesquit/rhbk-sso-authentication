@@ -1,6 +1,6 @@
 package com.redhat.resource;
 
-import com.bank.core.model.Transaction;
+import com.redhat.model.Transaction;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
