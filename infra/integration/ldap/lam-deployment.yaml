@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ldap-account-manager
+  namespace: ldap-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ldap-account-manager
+  template:
+    metadata:
+      labels:
+        app: ldap-account-manager
+    spec:
+      containers:
+        - name: lam
+          image: ghcr.io/ldapaccountmanager/lam:stable
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+            - name: LAM_SKIP_PRECONFIGURE
+              value: "true"
+            - name: LDAP_SERVER
+              value: "ldap://dirsrv-internal.ldap-lab.svc.cluster.local:3389"
+            - name: LDAP_USER
+              value: "cn=Directory Manager"
+            - name: LAM_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lam-secret
+                  key: lam-password
+          volumeMounts:
+            - name: lam-config
+              mountPath: /var/lib/ldap-account-manager/config/lam.conf
+              subPath: lam.conf
+      volumes:
+        - name: lam-config
+          configMap:
+            name: lam-config

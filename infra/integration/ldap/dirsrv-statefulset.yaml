@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dirsrv
+  namespace: ldap-lab
+spec:
+  serviceName: dirsrv-internal
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dirsrv
+  template:
+    metadata:
+      labels:
+        app: dirsrv
+    spec:
+      serviceAccountName: dirsrv-sa
+      initContainers:
+        - name: init-permissions
+          image: registry.access.redhat.com/ubi9/ubi-minimal
+          command:
+            - /bin/sh
+            - -c
+            - |
+              chown -R 389:389 /data
+          volumeMounts:
+            - name: dirsrv-data
+              mountPath: /data
+      containers:
+        - name: dirsrv
+          image: quay.io/389ds/dirsrv:c9s
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DS_DM_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dirsrv-dm-password
+                  key: dm-password
+            - name: DS_SUFFIX_NAME
+              value: "dc=example,dc=org"
+            - name: DS_STARTUP_TIMEOUT
+              value: "120"
+          ports:
+            - containerPort: 3389
+              name: ldap
+            - containerPort: 3636
+              name: ldaps
+          volumeMounts:
+            - name: dirsrv-data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: dirsrv-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi

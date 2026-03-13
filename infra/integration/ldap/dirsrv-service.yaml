@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dirsrv-internal
+  namespace: ldap-lab
+spec:
+  clusterIP: None
+  selector:
+    app: dirsrv
+  ports:
+    - name: ldap
+      port: 3389
+      targetPort: 3389
+    - name: ldaps
+      port: 3636
+      targetPort: 3636

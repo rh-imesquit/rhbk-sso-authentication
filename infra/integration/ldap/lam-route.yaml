@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: ldap-account-manager
+  namespace: ldap-lab
+spec:
+  to:
+    kind: Service
+    name: ldap-account-manager
+  port:
+    targetPort: http
+  tls:
+    termination: edge

@@ -1,0 +1,76 @@
+dn: ou=USUARIOS,o=BANCO
+objectClass: top
+objectClass: organizationalUnit
+ou: USUARIOS
+
+dn: ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: organizationalUnit
+ou: APLICACOES
+
+dn: ou=CBV,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: organizationalUnit
+ou: CBV
+
+dn: ou=TRANCODES,ou=CBV,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: organizationalUnit
+ou: TRANCODES
+
+dn: cn=CBV_001,ou=TRANCODES,ou=CBV,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: groupOfNames
+cn: CBV_001
+member: cn=030095468,ou=USUARIOS,o=BANCO
+member: cn=123456789,ou=USUARIOS,o=BANCO
+
+dn: cn=CBV_002,ou=TRANCODES,ou=CBV,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: groupOfNames
+cn: CBV_002
+member: cn=030095468,ou=USUARIOS,o=BANCO
+
+dn: ou=CREDITO,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: organizationalUnit
+ou: CREDITO
+
+dn: ou=TRANCODES,ou=CREDITO,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: organizationalUnit
+ou: TRANCODES
+
+dn: cn=CRD_001,ou=TRANCODES,ou=CREDITO,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: groupOfNames
+cn: CRD_001
+member: cn=123456789,ou=USUARIOS,o=BANCO
+
+dn: ou=RELATORIOS,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: organizationalUnit
+ou: RELATORIOS
+
+dn: ou=TRANCODES,ou=RELATORIOS,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: organizationalUnit
+ou: TRANCODES
+
+dn: cn=REL_001,ou=TRANCODES,ou=RELATORIOS,ou=APLICACOES,o=BANCO
+objectClass: top
+objectClass: groupOfNames
+cn: REL_001
+member: cn=030095468,ou=USUARIOS,o=BANCO
+
+dn: cn=030095468,ou=USUARIOS,o=BANCO
+objectClass: top
+objectClass: person
+cn: 030095468
+sn: 030095468
+
+dn: cn=123456789,ou=USUARIOS,o=BANCO
+objectClass: top
+objectClass: person
+cn: 123456789
+sn: 123456789
