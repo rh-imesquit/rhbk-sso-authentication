@@ -13,9 +13,11 @@ spec:
       labels:
         app: ldap-account-manager
     spec:
+      serviceAccountName: lam-sa
       containers:
         - name: lam
           image: ghcr.io/ldapaccountmanager/lam:stable
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
               name: http
@@ -31,11 +33,29 @@ spec:
                 secretKeyRef:
                   name: lam-secret
                   key: lam-password
+          securityContext:
+            runAsUser: 0
           volumeMounts:
             - name: lam-config
               mountPath: /var/lib/ldap-account-manager/config/lam.conf
               subPath: lam.conf
+            - name: tmp
+              mountPath: /tmp
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 20
       volumes:
         - name: lam-config
           configMap:
             name: lam-config
+        - name: tmp
+          emptyDir: {}

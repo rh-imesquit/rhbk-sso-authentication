@@ -36,7 +36,7 @@ spec:
     name: keycloak-custom-service
     weight: 100
     kind: Service
-  host: rhbk.apps.cluster-6sxqj.6sxqj.sandbox2680.opentlc.com
+  host: rhbk.apps.cluster-szqvf.szqvf.sandbox3501.opentlc.com
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: reencrypt

@@ -44,3 +44,16 @@ oc exec -n ldap-lab -c dirsrv dirsrv-0 -- ldapsearch -x \
   -H ldap://localhost:3389 \
   -b "o=BANCO" \
   "(objectClass=*)"
+
+
+
+# Criando service account para o LAM
+
+oc create serviceaccount lam-sa -n ldap-lab
+oc adm policy add-scc-to-user anyuid -n ldap-lab -z lam-sa
+
+
+# lam-secret.yaml
+
+${lam-password}
+${ldap-bind-password}

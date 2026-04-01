@@ -19,6 +19,6 @@ spec:
   ingress:
     enabled: false
   hostname:
-    hostname: rhbk.apps.cluster-6sxqj.6sxqj.sandbox2680.opentlc.com
+    hostname: rhbk.apps.cluster-szqvf.szqvf.sandbox3501.opentlc.com
   proxy:
     headers: xforwarded
