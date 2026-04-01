@@ -75,7 +75,6 @@ Monitor your application's health using SmallRye Health
 
 
 
-
-OIDC_AUTH_SERVER_URL="https://rhbk.apps.cluster-szqvf.szqvf.sandbox3501.opentlc.com/realms/realm-lab" \ 
+OIDC_AUTH_SERVER_URL="https://rhbk.apps.cluster-szqvf.szqvf.sandbox3501.opentlc.com/realms/realm-lab" \
 OIDC_CLIENT_ID="cbv-client" \
 ./mvnw clean install -Dquarkus.openshift.deploy=true
